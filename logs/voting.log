@@ -1,3 +1,48 @@
 INFO 2025-09-03 20:51:39,165 autoreload 27960 1224 Watching for file changes with StatReloader
 INFO 2025-09-03 20:53:44,417 autoreload 27960 1224 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\urls.py changed, reloading.
 INFO 2025-09-03 20:53:45,639 autoreload 20036 24660 Watching for file changes with StatReloader
+INFO 2025-09-03 21:19:52,583 autoreload 18164 20420 Watching for file changes with StatReloader
+ERROR 2025-09-03 21:19:57,416 log 18164 5060 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: voting/login.html
+ERROR 2025-09-03 21:19:57,425 basehttp 18164 5060 "GET / HTTP/1.1" 500 86986
+INFO 2025-09-03 21:20:02,780 basehttp 18164 5060 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-09-03 21:20:03,932 basehttp 18164 5060 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4187
+INFO 2025-09-03 21:20:19,975 basehttp 18164 5060 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4376
+INFO 2025-09-03 21:20:40,772 basehttp 18164 5060 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-09-03 21:20:40,873 basehttp 18164 5060 "GET /admin/ HTTP/1.1" 200 15094
+INFO 2025-09-03 21:20:54,069 basehttp 18164 5060 "GET /admin/voting/student/ HTTP/1.1" 200 17975
+INFO 2025-09-03 21:20:54,463 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 21:20:57,704 basehttp 18164 5060 "GET /admin/voting/student/1/change/ HTTP/1.1" 200 25630
+INFO 2025-09-03 21:20:57,748 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 21:21:11,494 basehttp 18164 5060 "GET /admin/voting/programme/add/?_to_field=id&_popup=1 HTTP/1.1" 200 6729
+INFO 2025-09-03 21:21:11,535 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 21:21:32,985 basehttp 18164 5060 "GET /admin/voting/department/add/?_to_field=id&_popup=1 HTTP/1.1" 200 6689
+INFO 2025-09-03 21:21:33,027 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 21:21:51,113 basehttp 18164 5060 "GET /admin/voting/faculty/add/?_to_field=id&_popup=1 HTTP/1.1" 200 5003
+INFO 2025-09-03 21:21:51,249 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 21:22:18,968 basehttp 18164 5060 "POST /admin/voting/faculty/add/?_to_field=id&_popup=1 HTTP/1.1" 200 366
+INFO 2025-09-03 21:22:19,174 basehttp 18164 5060 "GET /static/admin/js/popup_response.js HTTP/1.1" 200 532
+INFO 2025-09-03 21:22:22,101 basehttp 18164 5060 "POST /admin/voting/department/add/?_to_field=id&_popup=1 HTTP/1.1" 200 385
+INFO 2025-09-03 21:22:24,707 basehttp 18164 5060 "POST /admin/voting/programme/add/?_to_field=id&_popup=1 HTTP/1.1" 200 355
+INFO 2025-09-03 21:22:33,625 basehttp 18164 5060 "POST /admin/voting/student/1/change/ HTTP/1.1" 302 0
+INFO 2025-09-03 21:22:33,671 basehttp 18164 5060 "GET /admin/voting/student/ HTTP/1.1" 200 18240
+INFO 2025-09-03 21:22:33,708 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 21:22:36,458 basehttp 18164 5060 "GET /admin/voting/student/1/change/ HTTP/1.1" 200 25715
+INFO 2025-09-03 21:22:36,500 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 21:23:03,789 basehttp 18164 5060 "POST /admin/voting/student/1/change/ HTTP/1.1" 302 0
+INFO 2025-09-03 21:23:03,842 basehttp 18164 5060 "GET /admin/voting/student/ HTTP/1.1" 200 18240
+INFO 2025-09-03 21:23:03,878 basehttp 18164 5060 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
