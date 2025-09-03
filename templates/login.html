@@ -1,300 +1,1223 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- SEO Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Muranga University Student Union Elections - Secure login portal for students to participate in democratic voting for delegates and executive positions.">
+    <meta name="keywords" content="Muranga University, student union, elections, voting, delegates, student democracy">
+    <meta name="author" content="Muranga University">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Student Login - Muranga University Elections">
+    <meta property="og:description" content="Access your secure voting portal to participate in student union elections at Muranga University.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{% static 'images/mu-elections-banner.jpg' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Student Login - Muranga University Elections">
+    <meta name="twitter:description" content="Secure login portal for Muranga University student union elections.">
+    <meta name="twitter:image" content="{% static 'images/mu-elections-banner.jpg' %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    
+    <title>{% block title %}Student Login - Muranga University Elections{% endblock %}</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- CSS Dependencies -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet" integrity="sha512-oAvVec0YkPrHPKoNg+8cTUtNMi5aKANtHa7vLfP5qUCL4X0jIpKr69O4Bw0RuM7JNkbC9w8K5kQPxOXwv3rJ1A==" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Muranga University Student Elections",
+        "description": "Secure voting portal for Muranga University student union elections",
+        "url": "{{ request.build_absolute_uri }}",
+        "applicationCategory": "Education",
+        "operatingSystem": "Web Browser",
+        "provider": {
+            "@type": "Organization",
+            "name": "Muranga University",
+            "url": "https://www.muranga.ac.ke"
+        }
+    }
+    </script>
+    
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --box-shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-accent: linear-gradient(135deg, var(--accent-color), #fbbf24);
+        }
 
-{% block title %}Login - Student Union Voting System{% endblock %}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% block extra_css %}
-<style>
-    .login-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        padding: 2rem 0;
-    }
-    
-    .login-card {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    
-    .login-header {
-        text-align: center;
-        padding: 2rem;
-    }
-    
-    .login-header h1 {
-        margin-bottom: 0.5rem;
-        font-weight: 700;
-    }
-    
-    .login-header p {
-        margin-bottom: 0;
-        opacity: 0.8;
-    }
-    
-    .form-floating {
-        margin-bottom: 1.5rem;
-    }
-    
-    .form-control {
-        border-radius: 10px;
-        border: 2px solid #e9ecef;
-        padding: 1rem;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-    }
-    
-    .form-control:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
-    }
-    
-    .login-btn {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1.1rem;
-        margin-top: 1rem;
-    }
-    
-    .help-text {
-        font-size: 0.85rem;
-        color: #6c757d;
-        margin-top: 0.5rem;
-    }
-    
-    .voting-info {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 2rem;
-        margin-top: 2rem;
-        text-align: center;
-        color: white;
-    }
-    
-    .voting-info h3 {
-        margin-bottom: 1rem;
-        font-weight: 600;
-    }
-    
-    .voting-info .icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        opacity: 0.8;
-    }
-    
-    .security-notice {
-        background: rgba(255, 193, 7, 0.1);
-        border: 1px solid rgba(255, 193, 7, 0.3);
-        border-radius: 10px;
-        padding: 1rem;
-        margin-top: 1.5rem;
-        color: #856404;
-    }
-    
-    .security-notice i {
-        color: #ffc107;
-    }
-</style>
-{% endblock %}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            color: var(--dark-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-{% block content %}
-<div class="login-container">
-    <div class="row w-100">
-        <div class="col-lg-8 mx-auto">
-            <div class="row">
-                <!-- Login Form -->
-                <div class="col-md-6">
-                    <div class="card login-card">
-                        <div class="login-header card-header">
-                            <h1><i class="bi bi-vote-fill me-2"></i>Student Login</h1>
-                            <p>Enter your credentials to access the voting system</p>
-                        </div>
-                        
-                        <div class="card-body p-4">
-                            <form method="post" novalidate>
-                                {% csrf_token %}
-                                
-                                <!-- Registration Number Field -->
-                                <div class="form-floating">
-                                    {{ form.registration_number }}
-                                    <label for="{{ form.registration_number.id_for_label }}">
-                                        <i class="bi bi-person-badge me-2"></i>Registration Number
-                                    </label>
-                                    {% if form.registration_number.help_text %}
-                                        <div class="help-text">{{ form.registration_number.help_text }}</div>
-                                    {% endif %}
-                                    {% if form.registration_number.errors %}
-                                        <div class="invalid-feedback d-block">
-                                            {% for error in form.registration_number.errors %}
-                                                <div><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                
-                                <!-- Birth Certificate Number Field -->
-                                <div class="form-floating">
-                                    {{ form.birth_certificate_number }}
-                                    <label for="{{ form.birth_certificate_number.id_for_label }}">
-                                        <i class="bi bi-key me-2"></i>Birth Certificate Number
-                                    </label>
-                                    {% if form.birth_certificate_number.help_text %}
-                                        <div class="help-text">{{ form.birth_certificate_number.help_text }}</div>
-                                    {% endif %}
-                                    {% if form.birth_certificate_number.errors %}
-                                        <div class="invalid-feedback d-block">
-                                            {% for error in form.birth_certificate_number.errors %}
-                                                <div><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary login-btn" id="loginBtn">
-                                    <span class="btn-text">
-                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login to Vote
-                                    </span>
-                                    <span class="loading-spinner spinner-border spinner-border-sm me-2"></span>
-                                </button>
-                            </form>
+        /* Enhanced Login Container */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        /* Enhanced Login Card */
+        .login-card {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .login-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Enhanced Login Header */
+        .login-header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.1"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .login-header h1 {
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: -0.025em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-header p {
+            margin-bottom: 0;
+            opacity: 0.9;
+            font-size: 1rem;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Enhanced Form Styling */
+        .form-floating {
+            margin-bottom: 1.75rem;
+            position: relative;
+        }
+
+        .form-control {
+            border-radius: var(--border-radius);
+            border: 2px solid #e5e7eb;
+            padding: 1.25rem 1rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(30, 58, 138, 0.15);
+            background: white;
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .form-control:valid {
+            border-color: var(--success-color);
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--danger-color);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .form-floating label {
+            padding: 1rem;
+            font-weight: 500;
+            color: #6b7280;
+            transition: var(--transition);
+        }
+
+        .form-floating .form-control:focus ~ label,
+        .form-floating .form-control:not(:placeholder-shown) ~ label {
+            opacity: 0.8;
+            transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+        }
+
+        /* Enhanced Button */
+        .login-btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.025em;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            animation: spin 1s linear infinite;
+        }
+
+        .login-btn.loading .btn-text {
+            opacity: 0;
+        }
+
+        .login-btn.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Help Text */
+        .help-text {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        /* Enhanced Error Messages */
+        .invalid-feedback {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--danger-color);
+        }
+
+        /* Enhanced Information Panel */
+        .voting-info {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .voting-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: drift 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes drift {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .voting-info h3 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .voting-info .icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.7; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Enhanced Security Notice */
+        .security-notice {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: var(--border-radius);
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+            color: #92400e;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-notice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--warning-color);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .security-notice i {
+            color: var(--warning-color);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 1rem 0.5rem;
+            }
+            
+            .login-card {
+                margin: 1rem 0;
+            }
+            
+            .login-header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .voting-info {
+                padding: 2rem 1.5rem;
+                margin-top: 1rem;
+            }
+            
+            .voting-info .icon {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .voting-info h3 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Enhanced Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus indicators */
+        .form-control:focus-visible,
+        .login-btn:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .form-control {
+                border-width: 3px;
+            }
+            
+            .login-btn {
+                border: 2px solid white;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .voting-info,
+            .login-header {
+                background: white;
+                color: black;
+                border: 1px solid black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+    
+    <main id="main-content" class="login-container" role="main">
+        <div class="row w-100">
+            <div class="col-lg-8 mx-auto">
+                <div class="row">
+                    <!-- Login Form -->
+                    <div class="col-md-6">
+                        <article class="card login-card" role="form" aria-labelledby="login-title">
+                            <header class="login-header card-header">
+                                <h1 id="login-title">
+                                    <i class="bi bi-vote-fill me-2" aria-hidden="true"></i>
+                                    Student Login
+                                </h1>
+                                <p>Enter your credentials to access the voting system</p>
+                            </header>
                             
-                            <!-- Security Notice -->
-                            <div class="security-notice">
-                                <i class="bi bi-shield-check me-2"></i>
-                                <strong>Security Notice:</strong> Your vote is confidential and secure. 
-                                Never share your login credentials with anyone.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Information Panel -->
-                <div class="col-md-6">
-                    <div class="voting-info">
-                        <div class="icon">
-                            <i class="bi bi-people-fill"></i>
-                        </div>
-                        <h3>Student Union Elections</h3>
-                        <p class="mb-3">
-                            Your voice matters! Participate in shaping your student union by voting for:
-                        </p>
-                        
-                        <div class="row text-start">
-                            <div class="col-12">
-                                <ul class="list-unstyled">
-                                    <li class="mb-2">
-                                        <i class="bi bi-check-circle me-2 text-success"></i>
-                                        <strong>Delegates</strong> - Representatives from your department
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check-circle me-2 text-success"></i>
-                                        <strong>Executive Positions</strong> - President, Vice President, and Ministers
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check-circle me-2 text-success"></i>
-                                        <strong>Department Representatives</strong> - Your voice in the union
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4 pt-3 border-top border-light">
-                            <h5><i class="bi bi-info-circle me-2"></i>How it Works</h5>
-                            <div class="text-start">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <small>
-                                            <strong>Step 1:</strong><br>
-                                            Vote for delegates in your department
-                                        </small>
+                            <div class="card-body p-4">
+                                <form method="post" novalidate aria-describedby="form-help" role="form">
+                                    {% csrf_token %}
+                                    
+                                    <div id="form-help" class="sr-only">
+                                        Please enter your registration number and birth certificate number to log in to the voting system.
                                     </div>
-                                    <div class="col-6">
-                                        <small>
-                                            <strong>Step 2:</strong><br>
-                                            Delegates vote for executive positions
-                                        </small>
+                                    
+                                    <!-- Registration Number Field -->
+                                    <div class="form-floating">
+                                        {{ form.registration_number }}
+                                        <label for="{{ form.registration_number.id_for_label }}">
+                                            <i class="bi bi-person-badge me-2" aria-hidden="true"></i>
+                                            Registration Number
+                                        </label>
+                                        {% if form.registration_number.help_text %}
+                                            <div class="help-text" id="{{ form.registration_number.id_for_label }}-help">
+                                                {{ form.registration_number.help_text }}
+                                            </div>
+                                        {% endif %}
+                                        {% if form.registration_number.errors %}
+                                            <div class="invalid-feedback d-block" role="alert" aria-live="polite">
+                                                {% for error in form.registration_number.errors %}
+                                                    <div><i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Birth Certificate Number Field -->
+                                    <div class="form-floating">
+                                        {{ form.birth_certificate_number }}
+                                        <label for="{{ form.birth_certificate_number.id_for_label }}">
+                                            <i class="bi bi-key me-2" aria-hidden="true"></i>
+                                            Birth Certificate Number
+                                        </label>
+                                        {% if form.birth_certificate_number.help_text %}
+                                            <div class="help-text" id="{{ form.birth_certificate_number.id_for_label }}-help">
+                                                {{ form.birth_certificate_number.help_text }}
+                                            </div>
+                                        {% endif %}
+                                        {% if form.birth_certificate_number.errors %}
+                                            <div class="invalid-feedback d-block" role="alert" aria-live="polite">
+                                                {% for error in form.birth_certificate_number.errors %}
+                                                    <div><i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary login-btn" id="loginBtn" aria-describedby="login-help">
+                                        <span class="btn-text">
+                                            <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>
+                                            Login to Vote
+                                        </span>
+                                        <span class="loading-spinner spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                        <span class="sr-only" id="login-help">Click to log in to the voting system</span>
+                                    </button>
+                                </form>
+                                
+                                <!-- Security Notice -->
+                                <aside class="security-notice" role="complementary">
+                                    <i class="bi bi-shield-check me-2" aria-hidden="true"></i>
+                                    <strong>Security Notice:</strong> Your vote is confidential and secure. 
+                                    Never share your login credentials with anyone.
+                                </aside>
+                            </div>
+                        </article>
+                    </div>
+                    
+                    <!-- Information Panel -->
+                    <div class="col-md-6">
+                        <aside class="voting-info" role="complementary" aria-labelledby="voting-info-title">
+                            <div class="icon" aria-hidden="true">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <h3 id="voting-info-title">Student Union Elections</h3>
+                            <p class="mb-3">
+                                Your voice matters! Participate in shaping your student union by voting for:
+                            </p>
+                            
+                            <div class="row text-start">
+                                <div class="col-12">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle me-2 text-success" aria-hidden="true"></i>
+                                            <strong>Delegates</strong> - Representatives from your department
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle me-2 text-success" aria-hidden="true"></i>
+                                            <strong>Executive Positions</strong> - President, Vice President, and Ministers
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle me-2 text-success" aria-hidden="true"></i>
+                                            <strong>Department Representatives</strong> - Your voice in the union
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 pt-3 border-top border-light">
+                                <h5><i class="bi bi-info-circle me-2" aria-hidden="true"></i>How it Works</h5>
+                                <div class="text-start">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <small>
+                                                <strong>Step 1:</strong><br>
+                                                Vote for delegates in your department
+                                            </small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small>
+                                                <strong>Step 2:</strong><br>
+                                                Delegates vote for executive positions
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </aside>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+    </main>
 
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const loginForm = document.querySelector('form');
-        const loginBtn = document.getElementById('loginBtn');
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-X/YkDZyjTf4wyc2Vy16YGCPHwAY8rZJY+POgokZjQB2mhIRFJCckEGc6YyX9eNsPfn0PzThEuNs+uaomE5CO6A==" crossorigin="anonymous"></script>
+    
+    <script>
+        'use strict';
         
-        // Handle form submission
-        loginForm.addEventListener('submit', function(e) {
-            showLoading(loginBtn);
-        });
-        
-        // Format registration number input
-        const regNumberInput = document.getElementById('{{ form.registration_number.id_for_label }}');
-        
-        regNumberInput.addEventListener('input', function(e) {
-            let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-            
-            // Format as XX999/9999/9999
-            if (value.length > 2) {
-                value = value.substring(0, 2) + value.substring(2).replace(/[^0-9]/g, '');
+        class LoginManager {
+            constructor() {
+                this.form = document.querySelector('form');
+                this.loginBtn = document.getElementById('loginBtn');
+                this.regNumberInput = document.getElementById('{{ form.registration_number.id_for_label }}');
+                this.birthCertInput = document.getElementById('{{ form.birth_certificate_number.id_for_label }}');
+                
+                this.init();
             }
             
-            if (value.length > 5) {
-                value = value.substring(0, 5) + '/' + value.substring(5);
+            init() {
+                this.bindEvents();
+                this.setupValidation();
+                this.setupAccessibility();
             }
             
-            if (value.length > 10) {
-                value = value.substring(0, 10) + '/' + value.substring(10);
+            bindEvents() {
+                // Form submission
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+                
+                // Registration number formatting
+                this.regNumberInput.addEventListener('input', (e) => this.formatRegistrationNumber(e));
+                this.regNumberInput.addEventListener('keypress', (e) => this.validateRegistrationInput(e));
+                
+                // Real-time validation
+                [this.regNumberInput, this.birthCertInput].forEach(input => {
+                    input.addEventListener('blur', (e) => this.validateField(e));
+                    input.addEventListener('input', (e) => this.clearErrors(e));
+                });
+                
+                // Prevent form resubmission
+                window.addEventListener('beforeunload', () => {
+                    if (this.loginBtn.classList.contains('loading')) {
+                        return 'Are you sure you want to leave? Your login is in progress.';
+                    }
+                });
             }
             
-            if (value.length > 15) {
-                value = value.substring(0, 15);
+            setupValidation() {
+                // Setup custom validation messages
+                this.regNumberInput.setAttribute('aria-describedby', 
+                    this.regNumberInput.id + '-help');
+                this.birthCertInput.setAttribute('aria-describedby', 
+                    this.birthCertInput.id + '-help');
             }
             
-            e.target.value = value;
-        });
+            setupAccessibility() {
+                // Announce form errors to screen readers
+                const errors = document.querySelectorAll('.invalid-feedback');
+                errors.forEach(error => {
+                    error.setAttribute('role', 'alert');
+                    error.setAttribute('aria-live', 'polite');
+                });
+            }
+            
+            handleSubmit(event) {
+                if (!this.validateForm()) {
+                    event.preventDefault();
+                    this.announceErrors();
+                    return false;
+                }
+                
+                this.showLoading();
+                
+                // Add timeout to prevent hanging
+                setTimeout(() => {
+                    if (this.loginBtn.classList.contains('loading')) {
+                        this.hideLoading();
+                        this.showError('Login timeout. Please try again.');
+                    }
+                }, 30000); // 30 seconds timeout
+                
+                return true;
+            }
+            
+            formatRegistrationNumber(event) {
+                let value = event.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                
+                // Format as XX999/9999/9999
+                if (value.length > 2) {
+                    value = value.substring(0, 2) + value.substring(2).replace(/[^0-9]/g, '');
+                }
+                
+                if (value.length > 5) {
+                    value = value.substring(0, 5) + '/' + value.substring(5);
+                }
+                
+                if (value.length > 10) {
+                    value = value.substring(0, 10) + '/' + value.substring(10);
+                }
+                
+                if (value.length > 15) {
+                    value = value.substring(0, 15);
+                }
+                
+                event.target.value = value;
+                this.validateRegistrationNumber(value);
+            }
+            
+            validateRegistrationInput(event) {
+                const char = String.fromCharCode(event.which);
+                const value = event.target.value;
+                
+                // Allow letters only for first 2 characters
+                if (value.length < 2) {
+                    if (!/[A-Za-z]/.test(char)) {
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+                // Allow numbers and slashes for the rest
+                else if (!/[0-9\/]/.test(char) && 
+                         !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key)) {
+                    event.preventDefault();
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            validateRegistrationNumber(value) {
+                const pattern = /^[A-Z]{2}\d{3}\/\d{4}\/\d{4}$/;
+                const isValid = pattern.test(value);
+                
+                if (value.length > 0 && !isValid && value.length >= 15) {
+                    this.showFieldError(this.regNumberInput, 'Please enter a valid registration number (e.g., SC211/0530/2022)');
+                } else {
+                    this.clearFieldError(this.regNumberInput);
+                }
+                
+                return isValid;
+            }
+            
+            validateField(event) {
+                const field = event.target;
+                field.classList.add('was-validated');
+                
+                if (field === this.regNumberInput) {
+                    return this.validateRegistrationNumber(field.value);
+                } else if (field === this.birthCertInput) {
+                    return this.validateBirthCertificate(field.value);
+                }
+                
+                return true;
+            }
+            
+            validateBirthCertificate(value) {
+                const isValid = value.trim().length >= 6; // Minimum length validation
+                
+                if (!isValid && value.length > 0) {
+                    this.showFieldError(this.birthCertInput, 'Birth certificate number is required');
+                } else {
+                    this.clearFieldError(this.birthCertInput);
+                }
+                
+                return isValid;
+            }
+            
+            validateForm() {
+                let isValid = true;
+                
+                // Validate registration number
+                if (!this.validateRegistrationNumber(this.regNumberInput.value)) {
+                    isValid = false;
+                }
+                
+                // Validate birth certificate
+                if (!this.validateBirthCertificate(this.birthCertInput.value)) {
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            showFieldError(field, message) {
+                field.classList.add('is-invalid');
+                
+                // Remove existing error
+                const existingError = field.parentNode.querySelector('.custom-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                // Add new error
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'invalid-feedback d-block custom-error';
+                errorDiv.setAttribute('role', 'alert');
+                errorDiv.setAttribute('aria-live', 'polite');
+                errorDiv.innerHTML = `<i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>${message}`;
+                
+                field.parentNode.appendChild(errorDiv);
+            }
+            
+            clearFieldError(field) {
+                field.classList.remove('is-invalid');
+                const error = field.parentNode.querySelector('.custom-error');
+                if (error) {
+                    error.remove();
+                }
+            }
+            
+            clearErrors(event) {
+                const field = event.target;
+                this.clearFieldError(field);
+                field.classList.remove('was-validated');
+            }
+            
+            showLoading() {
+                this.loginBtn.classList.add('loading');
+                this.loginBtn.disabled = true;
+                this.loginBtn.setAttribute('aria-busy', 'true');
+                
+                // Announce to screen readers
+                const announcement = document.createElement('div');
+                announcement.className = 'sr-only';
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.textContent = 'Logging in, please wait...';
+                document.body.appendChild(announcement);
+                
+                setTimeout(() => {
+                    document.body.removeChild(announcement);
+                }, 1000);
+            }
+            
+            hideLoading() {
+                this.loginBtn.classList.remove('loading');
+                this.loginBtn.disabled = false;
+                this.loginBtn.removeAttribute('aria-busy');
+            }
+            
+            showError(message) {
+                // Create or update error alert
+                let errorAlert = document.querySelector('.login-error-alert');
+                
+                if (!errorAlert) {
+                    errorAlert = document.createElement('div');
+                    errorAlert.className = 'alert alert-danger login-error-alert mt-3';
+                    errorAlert.setAttribute('role', 'alert');
+                    errorAlert.setAttribute('aria-live', 'polite');
+                    
+                    const cardBody = document.querySelector('.card-body');
+                    cardBody.insertBefore(errorAlert, cardBody.firstChild);
+                }
+                
+                errorAlert.innerHTML = `
+                    <i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i>
+                    <strong>Error:</strong> ${message}
+                    <button type="button" class="btn-close ms-auto" aria-label="Close error message"></button>
+                `;
+                
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => {
+                    if (errorAlert.parentNode) {
+                        errorAlert.remove();
+                    }
+                }, 5000);
+                
+                // Manual dismiss
+                const closeBtn = errorAlert.querySelector('.btn-close');
+                closeBtn.addEventListener('click', () => {
+                    errorAlert.remove();
+                });
+                
+                // Focus management
+                errorAlert.focus();
+            }
+            
+            announceErrors() {
+                const errors = document.querySelectorAll('.invalid-feedback:not(.d-none)');
+                if (errors.length > 0) {
+                    const announcement = document.createElement('div');
+                    announcement.className = 'sr-only';
+                    announcement.setAttribute('aria-live', 'polite');
+                    announcement.textContent = `Form contains ${errors.length} error${errors.length !== 1 ? 's' : ''}. Please review and correct.`;
+                    
+                    document.body.appendChild(announcement);
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(announcement);
+                    }, 2000);
+                    
+                    // Focus first invalid field
+                    const firstInvalidField = document.querySelector('.is-invalid');
+                    if (firstInvalidField) {
+                        firstInvalidField.focus();
+                    }
+                }
+            }
+            
+            // Utility method for debouncing
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+        }
         
-        regNumberInput.addEventListener('keypress', function(e) {
-            const char = String.fromCharCode(e.which);
-            const value = e.target.value;
+        // Performance monitoring
+        class PerformanceMonitor {
+            constructor() {
+                this.startTime = performance.now();
+                this.init();
+            }
             
-            // Allow letters only for first 2 characters
-            if (value.length < 2) {
-                if (!/[A-Za-z]/.test(char)) {
+            init() {
+                // Monitor page load performance
+                window.addEventListener('load', () => {
+                    const loadTime = performance.now() - this.startTime;
+                    console.log(`Login page loaded in ${Math.round(loadTime)}ms`);
+                    
+                    // Send performance data (if analytics endpoint exists)
+                    this.reportPerformance('page_load', loadTime);
+                });
+                
+                // Monitor form interaction performance
+                document.addEventListener('DOMContentLoaded', () => {
+                    const interactionTime = performance.now() - this.startTime;
+                    this.reportPerformance('dom_ready', interactionTime);
+                });
+            }
+            
+            reportPerformance(metric, value) {
+                // This would typically send to your analytics service
+                if (window.gtag) {
+                    window.gtag('event', 'timing_complete', {
+                        name: metric,
+                        value: Math.round(value)
+                    });
+                }
+            }
+        }
+        
+        // Security utilities
+        class SecurityManager {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.preventRightClick();
+                this.detectDevTools();
+                this.monitorSuspiciousActivity();
+            }
+            
+            preventRightClick() {
+                document.addEventListener('contextmenu', (e) => {
                     e.preventDefault();
+                    return false;
+                });
+            }
+            
+            detectDevTools() {
+                let devtools = {
+                    open: false,
+                    orientation: null
+                };
+                
+                const threshold = 160;
+                setInterval(() => {
+                    if (window.outerHeight - window.innerHeight > threshold || 
+                        window.outerWidth - window.innerWidth > threshold) {
+                        if (!devtools.open) {
+                            devtools.open = true;
+                            console.warn('Developer tools detected');
+                            // Log security event
+                            this.logSecurityEvent('devtools_detected');
+                        }
+                    } else {
+                        devtools.open = false;
+                    }
+                }, 500);
+            }
+            
+            monitorSuspiciousActivity() {
+                let rapidClicks = 0;
+                const maxClicks = 10;
+                const timeWindow = 5000; // 5 seconds
+                
+                document.addEventListener('click', () => {
+                    rapidClicks++;
+                    
+                    if (rapidClicks > maxClicks) {
+                        this.logSecurityEvent('rapid_clicking');
+                        rapidClicks = 0;
+                    }
+                    
+                    setTimeout(() => {
+                        rapidClicks = Math.max(0, rapidClicks - 1);
+                    }, timeWindow);
+                });
+            }
+            
+            logSecurityEvent(eventType) {
+                // Send security event to backend
+                console.log(`Security event: ${eventType}`);
+                
+                // You would typically send this to your security monitoring endpoint
+                fetch('/api/security-log/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: JSON.stringify({
+                        event_type: eventType,
+                        timestamp: new Date().toISOString(),
+                        user_agent: navigator.userAgent,
+                        url: window.location.href
+                    })
+                }).catch(err => {
+                    console.error('Failed to log security event:', err);
+                });
+            }
+        }
+        
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize core functionality
+            const loginManager = new LoginManager();
+            const performanceMonitor = new PerformanceMonitor();
+            const securityManager = new SecurityManager();
+            
+            // Add progressive enhancement
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('Service worker registration failed:', err);
+                });
+            }
+            
+            // Add connection monitoring
+            if ('connection' in navigator) {
+                const connection = navigator.connection;
+                if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+                    document.body.classList.add('slow-connection');
+                    console.log('Slow connection detected, optimizing experience');
                 }
             }
-            // Allow numbers and slashes for the rest
-            else if (!/[0-9\/]/.test(char) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                e.preventDefault();
+            
+            // Add dark mode support
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Add smooth scrolling for accessibility links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        target.focus();
+                    }
+                });
+            });
+            
+            // Log successful initialization
+            console.log('Login page initialized successfully');
+        });
+        
+        // Handle browser back/forward navigation
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                // Page was loaded from cache, reset form state
+                const form = document.querySelector('form');
+                if (form) {
+                    form.reset();
+                    document.querySelectorAll('.is-invalid').forEach(el => {
+                        el.classList.remove('is-invalid');
+                    });
+                    document.querySelectorAll('.custom-error').forEach(el => {
+                        el.remove();
+                    });
+                }
             }
         });
         
-        // Add validation feedback
-        const inputs = document.querySelectorAll('.form-control');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                this.classList.add('was-validated');
-            });
+        // Error boundary for JavaScript errors
+        window.addEventListener('error', function(event) {
+            console.error('JavaScript error:', event.error);
             
-            input.addEventListener('input', function() {
-                this.classList.remove('was-validated');
-                // Remove any existing error styling
-                const feedback = this.parentNode.querySelector('.invalid-feedback');
-                if (feedback) {
-                    feedback.style.display = 'none';
-                }
-            });
+            // Show user-friendly error message
+            const errorAlert = document.createElement('div');
+            errorAlert.className = 'alert alert-warning mt-3';
+            errorAlert.innerHTML = `
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>Notice:</strong> A technical issue occurred. Please refresh the page and try again.
+            `;
+            
+            const cardBody = document.querySelector('.card-body');
+            if (cardBody) {
+                cardBody.insertBefore(errorAlert, cardBody.firstChild);
+            }
+            
+            return true; // Prevent default browser error handling
         });
-    });
-</script>
-{% endblock %}
+        
+        // Handle offline/online status
+        window.addEventListener('offline', function() {
+            const offlineAlert = document.createElement('div');
+            offlineAlert.id = 'offline-alert';
+            offlineAlert.className = 'alert alert-warning position-fixed top-0 start-50 translate-middle-x mt-3';
+            offlineAlert.style.zIndex = '9999';
+            offlineAlert.innerHTML = `
+                <i class="bi bi-wifi-off me-2"></i>
+                <strong>No internet connection.</strong> Please check your connection and try again.
+            `;
+            document.body.appendChild(offlineAlert);
+        });
+        
+        window.addEventListener('online', function() {
+            const offlineAlert = document.getElementById('offline-alert');
+            if (offlineAlert) {
+                offlineAlert.remove();
+            }
+        });
+    </script>
+    
+    <!-- Schema.org structured data for better SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Student Login - Muranga University Elections",
+        "description": "Secure login portal for Muranga University student union elections",
+        "url": "{{ request.build_absolute_uri }}",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Muranga University Student Portal",
+            "url": "{{ request.build_absolute_uri|slice:':3' }}{{ request.get_host }}"
+        },
+        "provider": {
+            "@type": "EducationalOrganization",
+            "@id": "https://www.muranga.ac.ke",
+            "name": "Muranga University",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "P.O Box 75",
+                "addressLocality": "Muranga",
+                "addressCountry": "KE"
+            }
+        },
+        "potentialAction": {
+            "@type": "LoginAction",
+            "target": "{{ request.build_absolute_uri }}",
+            "object": {
+                "@type": "WebApplication",
+                "name": "Student Voting System"
+            }
+        }
+    }
+    </script>
+    
+    <!-- Google Analytics (replace with your tracking ID) -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_TRACKING_ID', {
+            page_title: 'Student Login',
+            page_location: window.location.href
+        });
+    </script>
+    -->
+</body>
+</html>
