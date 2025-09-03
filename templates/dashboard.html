@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block title %}Dashboard - Student Union Voting System{% endblock %}
+{% block content %}
 
-{% block extra_css %}
 <style>
     .welcome-section {
         background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
@@ -240,7 +240,7 @@
     .progress-item {
         display: flex;
         align-items: center;
-        justify-content: between;
+        justify-content: space-between;
         padding: 0.75rem 0;
         border-bottom: 1px solid #f8f9fa;
     }
@@ -279,9 +279,8 @@
         }
     }
 </style>
-{% endblock %}
 
-{% block content %}
+
 <!-- Welcome Section -->
 <div class="welcome-section">
     <h1><i class="bi bi-person-circle me-2"></i>Welcome, {{ student.first_name }}!</h1>
@@ -294,11 +293,11 @@
         </div>
         <div class="info-item">
             <h6>Department</h6>
-            <p>{{ department.name }}</p>
+            <p>{% if department %}{{ department.name }}{% else %}Not Set{% endif %}</p>
         </div>
         <div class="info-item">
             <h6>Faculty</h6>
-            <p>{{ faculty.name }}</p>
+            <p>{% if faculty %}{{ faculty.name }}{% else %}Not Set{% endif %}</p>
         </div>
         <div class="info-item">
             <h6>Year of Study</h6>
@@ -469,10 +468,14 @@
         </div>
         
         {% if position.id in voted_positions %}
-            <div class="alert alert-success">
-                <i class="bi bi-check-circle me-2"></i>
-                You have voted for <strong>{{ delegate_votes|get_item:position.id.candidate.student.full_name }}</strong>
-            </div>
+            {% for vote in delegate_votes %}
+                {% if vote.candidate.position.id == position.id %}
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle me-2"></i>
+                        You have voted for <strong>{{ vote.candidate.student.full_name }}</strong>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% else %}
             <div class="row">
                 {% for candidate in candidates %}
@@ -558,9 +561,7 @@
     <p class="text-muted">There are currently no active elections. Please check back later.</p>
 </div>
 {% endif %}
-{% endblock %}
 
-{% block extra_js %}
 <script>
 // Vote for delegate function
 function voteForDelegate(delegateId) {

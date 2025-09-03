@@ -295,3 +295,135 @@ Traceback (most recent call last):
     raise NoReverseMatch("%s is not a registered namespace" % key)
 django.urls.exceptions.NoReverseMatch: 'voting' is not a registered namespace
 ERROR 2025-09-03 22:25:03,851 basehttp 6112 7896 "GET / HTTP/1.1" 500 141933
+INFO 2025-09-03 22:25:40,083 basehttp 6112 7896 "GET / HTTP/1.1" 200 7461
+INFO 2025-09-03 22:25:47,962 basehttp 6112 7896 "POST / HTTP/1.1" 200 7960
+INFO 2025-09-03 22:25:50,111 basehttp 6112 7896 "POST / HTTP/1.1" 200 7960
+INFO 2025-09-03 22:26:44,421 views 6112 7896 Student SC211/0001/1996 logged in successfully
+INFO 2025-09-03 22:26:44,424 basehttp 6112 7896 "POST / HTTP/1.1" 302 0
+ERROR 2025-09-03 22:26:44,596 log 6112 7896 Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\BACKUP\Complete Projects\university_voting_system\voting\views.py", line 149, in dashboard_view
+    'department': request.user.department,
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "D:\BACKUP\Complete Projects\university_voting_system\voting\models.py", line 104, in department
+    return self.programme.department
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'department'
+ERROR 2025-09-03 22:26:44,605 basehttp 6112 7896 "GET /dashboard/ HTTP/1.1" 500 85337
+INFO 2025-09-03 23:08:21,261 basehttp 6112 25216 "GET /admin/voting/student/ HTTP/1.1" 200 75920
+INFO 2025-09-03 23:08:21,781 basehttp 6112 25216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:08:28,972 basehttp 6112 25216 "GET /admin/voting/student/?p=4 HTTP/1.1" 200 19565
+INFO 2025-09-03 23:08:28,998 basehttp 6112 25216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:08:38,595 basehttp 6112 25216 "GET /admin/voting/student/?q=admin HTTP/1.1" 200 19449
+INFO 2025-09-03 23:08:38,619 basehttp 6112 25216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:08:44,959 basehttp 6112 25216 "GET /admin/voting/student/302/change/?_changelist_filters=q%3Dadmin HTTP/1.1" 200 32022
+INFO 2025-09-03 23:08:45,335 basehttp 6112 25216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:08:59,684 basehttp 6112 25216 "POST /admin/voting/student/302/change/?_changelist_filters=q%3Dadmin HTTP/1.1" 302 0
+INFO 2025-09-03 23:08:59,934 basehttp 6112 25216 "GET /admin/voting/student/?q=admin HTTP/1.1" 200 19728
+INFO 2025-09-03 23:08:59,968 basehttp 6112 25216 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+ERROR 2025-09-03 23:09:04,619 log 6112 25216 Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\BACKUP\Complete Projects\university_voting_system\voting\views.py", line 199, in dashboard_view
+    return render(request, 'dashboard.html', context)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 705, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 615, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'get_item'
+ERROR 2025-09-03 23:09:04,635 basehttp 6112 25216 "GET /dashboard/ HTTP/1.1" 500 367584
+INFO 2025-09-03 23:11:31,964 basehttp 6112 25216 "GET /dashboard/ HTTP/1.1" 200 3450
+INFO 2025-09-03 23:12:10,547 views 6112 25216 Student SC211/0001/1996 logged out
+INFO 2025-09-03 23:12:10,549 basehttp 6112 25216 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-09-03 23:12:10,698 basehttp 6112 25216 "GET /login/ HTTP/1.1" 200 7747
+INFO 2025-09-03 23:12:25,929 basehttp 6112 25216 "GET /login/ HTTP/1.1" 200 7461
+INFO 2025-09-03 23:12:56,844 views 6112 25216 Student SC211/0001/1996 logged in successfully
+INFO 2025-09-03 23:12:56,847 basehttp 6112 25216 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-09-03 23:12:56,869 basehttp 6112 25216 "GET /dashboard/ HTTP/1.1" 200 3450
