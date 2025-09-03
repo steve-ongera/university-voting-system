@@ -1,0 +1,3 @@
+INFO 2025-09-03 20:51:39,165 autoreload 27960 1224 Watching for file changes with StatReloader
+INFO 2025-09-03 20:53:44,417 autoreload 27960 1224 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\urls.py changed, reloading.
+INFO 2025-09-03 20:53:45,639 autoreload 20036 24660 Watching for file changes with StatReloader
