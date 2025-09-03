@@ -1,9 +1,12 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Muranga University - Student Voting System{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png'%}">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -286,8 +289,8 @@
             </button>
 
             <!-- Brand -->
-            <a class="navbar-brand" href="#">
-                <img src="https://via.placeholder.com/40x40/1e3a8a/ffffff?text=MU" alt="MU Logo">
+            <a class="navbar-brand" href="{% url 'dashboard'%}">
+                <img src="{% static 'img/logo.png'%}" alt="MU Logo">
                 Muranga University
             </a>
 
@@ -312,12 +315,12 @@
                 <!-- User Dropdown -->
                 <div class="dropdown user-dropdown">
                     <button class="btn btn-link text-white d-flex align-items-center" type="button" data-bs-toggle="dropdown">
-                        <img src="https://via.placeholder.com/35x35/3b82f6/ffffff?text=JS" alt="Avatar" class="user-avatar me-2">
-                        <span class="d-none d-md-inline">John Student</span>
+                        <img src="{% static 'img/avatar.png'%}" alt="Avatar" class="user-avatar me-2">
+                        <span class="d-none d-md-inline">{{ user.first_name }} {{ user.last_name }}</span>
                         <i class="fas fa-chevron-down ms-2"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><h6 class="dropdown-header">Welcome, John!</h6></li>
+                        <li><h6 class="dropdown-header">Hi, {{ user.registration_number }}!</h6></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>My Profile</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-question-circle me-2"></i>Help</a></li>
@@ -340,8 +343,8 @@
         </div>
 
         <ul class="sidebar-menu">
-            <li><a href="#" class="active"><i class="fas fa-home"></i>Dashboard</a></li>
-            <li><a href="#"><i class="fas fa-chart-pie"></i>Election Results</a></li>
+            <li><a href="{% url 'dashboard'%}" class="active"><i class="fas fa-home"></i>Dashboard</a></li>
+            <li><a href="{% url 'results'%}"><i class="fas fa-chart-pie"></i>Election Results</a></li>
             <li><a href="#"><i class="fas fa-vote-yea"></i>Cast Vote</a></li>
             <li><a href="#"><i class="fas fa-users"></i>Candidates</a></li>
             <li><a href="#"><i class="fas fa-user-tie"></i>Delegates</a></li>

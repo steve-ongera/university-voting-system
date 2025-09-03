@@ -43,7 +43,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # custom voting middleware
+    'voting.middleware.VotingSecurityMiddleware',
 ]
+
+VOTING_SETTINGS = {
+    'ALLOWED_VOTING_IPS': ["127.0.0.1"]  # or add specific IPs like ["127.0.0.1"]
+}
+
 
 ROOT_URLCONF = 'university_voting_system.urls'
 

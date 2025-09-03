@@ -3,7 +3,7 @@
 
 {% block title %}Dashboard - Student Union Voting System{% endblock %}
 
-{% block extra_css %}
+{% block content %}
 <style>
     :root {
         --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
@@ -618,9 +618,10 @@
         }
     }
 </style>
-{% endblock %}
 
-{% block content %}
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+
 <!-- Enhanced Welcome Section -->
 <section class="welcome-hero" role="banner">
     <div class="welcome-content">

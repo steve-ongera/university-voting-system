@@ -560,3 +560,159 @@ INFO 2025-09-03 23:56:16,227 basehttp 6112 19284 "GET /login/ HTTP/1.1" 200 4756
 WARNING 2025-09-03 23:56:16,438 log 6112 19284 Not Found: /sw.js
 WARNING 2025-09-03 23:56:16,440 basehttp 6112 19284 "GET /sw.js HTTP/1.1" 404 5317
 INFO 2025-09-03 23:58:12,894 autoreload 21420 22424 Watching for file changes with StatReloader
+INFO 2025-09-03 23:58:35,526 basehttp 21420 3448 "GET / HTTP/1.1" 200 47565
+WARNING 2025-09-03 23:58:37,061 basehttp 21420 3448 "GET /static/favicon.ico HTTP/1.1" 404 1964
+WARNING 2025-09-03 23:58:37,072 basehttp 21420 28000 "GET /static/images/favicon-32x32.png HTTP/1.1" 404 2003
+WARNING 2025-09-03 23:58:37,088 basehttp 21420 11192 "GET /static/images/favicon-16x16.png HTTP/1.1" 404 2003
+INFO 2025-09-03 23:58:45,552 basehttp 21420 19268 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-09-03 23:58:45,996 basehttp 21420 19268 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4187
+INFO 2025-09-03 23:58:46,248 basehttp 21420 10344 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-09-03 23:58:46,256 basehttp 21420 19268 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-09-03 23:58:46,257 basehttp 21420 17560 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-09-03 23:58:46,260 basehttp 21420 23840 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-09-03 23:58:46,262 basehttp 21420 4484 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-09-03 23:58:46,272 basehttp 21420 25960 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-09-03 23:58:46,274 basehttp 21420 4484 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-09-03 23:58:46,276 basehttp 21420 10744 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-09-03 23:58:46,303 basehttp 21420 25960 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+WARNING 2025-09-03 23:58:46,357 log 21420 10744 Not Found: /favicon.ico
+WARNING 2025-09-03 23:58:46,360 basehttp 21420 10744 "GET /favicon.ico HTTP/1.1" 404 5339
+INFO 2025-09-03 23:59:03,345 basehttp 21420 10744 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-09-03 23:59:03,409 basehttp 21420 10744 "GET /admin/ HTTP/1.1" 200 15502
+INFO 2025-09-03 23:59:03,448 basehttp 21420 23840 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-09-03 23:59:03,449 basehttp 21420 4484 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-09-03 23:59:03,453 basehttp 21420 10744 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-09-03 23:59:09,061 basehttp 21420 10744 "GET /admin/voting/delegate/ HTTP/1.1" 200 79366
+INFO 2025-09-03 23:59:09,086 basehttp 21420 10744 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-09-03 23:59:09,100 basehttp 21420 23840 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-09-03 23:59:09,102 basehttp 21420 10344 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-09-03 23:59:09,105 basehttp 21420 17560 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-09-03 23:59:09,106 basehttp 21420 19268 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-09-03 23:59:09,110 basehttp 21420 10344 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-09-03 23:59:09,110 basehttp 21420 23840 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-09-03 23:59:09,112 basehttp 21420 10744 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:09,115 basehttp 21420 19268 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-09-03 23:59:09,118 basehttp 21420 10344 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-09-03 23:59:09,119 basehttp 21420 4484 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-09-03 23:59:09,120 basehttp 21420 17560 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-09-03 23:59:09,140 basehttp 21420 17560 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-09-03 23:59:09,150 basehttp 21420 25960 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-09-03 23:59:09,155 basehttp 21420 21428 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-09-03 23:59:09,156 basehttp 21420 21868 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-09-03 23:59:09,172 basehttp 21420 25960 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-09-03 23:59:09,184 basehttp 21420 28016 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-09-03 23:59:09,187 basehttp 21420 21428 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:09,188 basehttp 21420 7940 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-09-03 23:59:09,189 basehttp 21420 17560 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-09-03 23:59:09,195 basehttp 21420 21868 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-09-03 23:59:09,198 basehttp 21420 18556 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-09-03 23:59:09,220 basehttp 21420 17560 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-09-03 23:59:09,225 basehttp 21420 17560 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-09-03 23:59:10,109 basehttp 21420 18556 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-09-03 23:59:11,513 basehttp 21420 17560 "GET /admin/voting/delegate/?q= HTTP/1.1" 200 81989
+INFO 2025-09-03 23:59:11,546 basehttp 21420 17560 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:11,770 basehttp 21420 18556 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:49,239 basehttp 21420 17560 "GET /admin/voting/student/ HTTP/1.1" 200 75920
+INFO 2025-09-03 23:59:49,272 basehttp 21420 17560 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:49,287 basehttp 21420 18556 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:49,293 basehttp 21420 17560 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-09-03 23:59:53,109 basehttp 21420 17560 "GET /admin/voting/student/120/change/ HTTP/1.1" 200 31962
+INFO 2025-09-03 23:59:53,131 basehttp 21420 17560 "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-09-03 23:59:53,145 basehttp 21420 19268 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-09-03 23:59:53,146 basehttp 21420 4484 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-09-03 23:59:53,148 basehttp 21420 17560 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-09-03 23:59:53,150 basehttp 21420 10744 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:53,150 basehttp 21420 10344 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-09-03 23:59:53,158 basehttp 21420 10744 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-09-03 23:59:53,166 basehttp 21420 18556 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-09-03 23:59:53,166 basehttp 21420 21868 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-09-03 23:59:53,169 basehttp 21420 28016 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-09-03 23:59:53,171 basehttp 21420 21428 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-09-03 23:59:53,173 basehttp 21420 7940 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-03 23:59:53,234 basehttp 21420 10744 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-09-03 23:59:53,234 basehttp 21420 10344 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-09-04 00:00:17,858 basehttp 21420 10344 "POST /admin/voting/student/120/change/ HTTP/1.1" 302 0
+INFO 2025-09-04 00:00:18,228 basehttp 21420 10344 "GET /admin/voting/student/ HTTP/1.1" 200 76159
+INFO 2025-09-04 00:00:18,256 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:00:18,274 basehttp 21420 7940 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:00:24,118 views 6112 19284 Student AG178/9171/2021 logged in successfully
+INFO 2025-09-04 00:00:24,121 basehttp 6112 19284 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-09-04 00:00:24,145 basehttp 6112 19284 "GET /dashboard/ HTTP/1.1" 200 50373
+INFO 2025-09-04 00:00:42,893 basehttp 21420 10344 "GET /admin/voting/delegate/ HTTP/1.1" 200 79366
+INFO 2025-09-04 00:00:42,926 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:00:42,944 basehttp 21420 7940 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:00:45,186 basehttp 21420 10344 "GET /admin/voting/delegate/85/change/ HTTP/1.1" 200 42362
+INFO 2025-09-04 00:00:45,212 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:00:45,359 basehttp 21420 7940 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:01:10,152 basehttp 21420 10344 "GET /admin/voting/department/16/change/?_to_field=id&_popup=1 HTTP/1.1" 200 7257
+INFO 2025-09-04 00:01:10,184 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:01:10,204 basehttp 21420 7940 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:01:13,882 basehttp 21420 10344 "GET /admin/voting/faculty/4/change/?_to_field=id&_popup=1 HTTP/1.1" 200 5047
+INFO 2025-09-04 00:01:13,917 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:01:13,940 basehttp 21420 7940 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:01:23,202 basehttp 21420 10344 "GET /admin/voting/student/ HTTP/1.1" 200 75930
+INFO 2025-09-04 00:01:23,234 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:01:25,564 basehttp 21420 10344 "GET /admin/voting/student/120/change/ HTTP/1.1" 200 31962
+INFO 2025-09-04 00:01:25,589 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:01:30,323 basehttp 21420 10344 "GET /admin/voting/programme/46/change/?_to_field=id&_popup=1 HTTP/1.1" 200 9443
+INFO 2025-09-04 00:01:30,351 basehttp 21420 10344 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:02:22,787 basehttp 21420 3840 "POST /admin/voting/student/120/change/ HTTP/1.1" 302 0
+INFO 2025-09-04 00:02:23,078 basehttp 21420 3840 "GET /admin/voting/student/ HTTP/1.1" 200 76163
+INFO 2025-09-04 00:02:23,101 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:02:27,748 basehttp 6112 8080 "GET /dashboard/ HTTP/1.1" 200 50397
+INFO 2025-09-04 00:02:51,440 basehttp 21420 3840 "GET /admin/voting/student/120/change/ HTTP/1.1" 200 31962
+INFO 2025-09-04 00:02:51,463 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:03:09,993 basehttp 21420 3840 "POST /admin/voting/student/120/change/ HTTP/1.1" 302 0
+INFO 2025-09-04 00:03:10,322 basehttp 21420 3840 "GET /admin/voting/student/ HTTP/1.1" 200 76163
+INFO 2025-09-04 00:03:10,348 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:03:12,911 basehttp 21420 3840 "GET /admin/voting/delegate/ HTTP/1.1" 200 79366
+INFO 2025-09-04 00:03:12,934 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:03:18,906 basehttp 21420 3840 "GET /admin/voting/delegate/90/change/ HTTP/1.1" 200 42356
+INFO 2025-09-04 00:03:18,932 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:03:26,941 basehttp 21420 3840 "POST /admin/voting/delegate/90/change/ HTTP/1.1" 200 42535
+INFO 2025-09-04 00:03:26,965 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:03:38,270 basehttp 21420 3840 "GET /admin/voting/student/278/change/?_to_field=id&_popup=1 HTTP/1.1" 200 21231
+INFO 2025-09-04 00:03:38,300 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:03:49,200 basehttp 21420 3840 "POST /admin/voting/student/278/change/?_to_field=id&_popup=1 HTTP/1.1" 200 438
+INFO 2025-09-04 00:03:49,240 basehttp 21420 3840 "GET /static/admin/js/popup_response.js HTTP/1.1" 200 532
+INFO 2025-09-04 00:03:54,208 basehttp 21420 3840 "POST /admin/voting/delegate/90/change/ HTTP/1.1" 302 0
+INFO 2025-09-04 00:03:55,006 basehttp 21420 3840 "GET /admin/voting/delegate/ HTTP/1.1" 200 79642
+INFO 2025-09-04 00:03:55,036 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:03:59,526 basehttp 6112 8080 "GET /dashboard/ HTTP/1.1" 200 50394
+INFO 2025-09-04 00:04:39,249 basehttp 21420 3840 "GET /admin/voting/delegatevote/ HTTP/1.1" 200 15590
+INFO 2025-09-04 00:04:39,281 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:04:41,596 basehttp 21420 3840 "GET /admin/voting/candidate/ HTTP/1.1" 200 47261
+INFO 2025-09-04 00:04:41,623 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:04:45,344 basehttp 21420 3840 "GET /admin/voting/election/ HTTP/1.1" 200 17614
+INFO 2025-09-04 00:04:45,367 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:04:49,723 basehttp 21420 3840 "GET /admin/voting/election/1/change/ HTTP/1.1" 200 20937
+INFO 2025-09-04 00:04:49,748 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:05:18,681 basehttp 21420 3840 "GET /static/admin/img/calendar-icons.svg HTTP/1.1" 200 2455
+INFO 2025-09-04 00:05:35,734 basehttp 21420 3840 "POST /admin/voting/election/1/change/ HTTP/1.1" 302 0
+INFO 2025-09-04 00:05:35,764 basehttp 21420 3840 "GET /admin/voting/election/ HTTP/1.1" 200 17875
+INFO 2025-09-04 00:05:35,790 basehttp 21420 3840 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-04 00:05:42,707 basehttp 6112 8080 "GET /dashboard/ HTTP/1.1" 200 63904
+WARNING 2025-09-04 00:06:45,491 log 6112 8080 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vote/delegate/
+WARNING 2025-09-04 00:06:45,492 basehttp 6112 8080 "POST /vote/delegate/ HTTP/1.1" 403 2549
+WARNING 2025-09-04 00:06:52,787 log 6112 8080 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vote/delegate/
+WARNING 2025-09-04 00:06:52,789 basehttp 6112 8080 "POST /vote/delegate/ HTTP/1.1" 403 2549
+WARNING 2025-09-04 00:15:15,652 log 6112 22704 Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /vote/delegate/
+WARNING 2025-09-04 00:15:15,669 basehttp 6112 22704 "POST /vote/delegate/ HTTP/1.1" 403 2549
+WARNING 2025-09-04 00:15:24,567 log 6112 22704 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-09-04 00:15:24,567 basehttp 6112 22704 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5446
+WARNING 2025-09-04 00:16:41,164 log 6112 22704 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-09-04 00:16:41,207 basehttp 6112 22704 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5446
+WARNING 2025-09-04 00:16:49,853 log 6112 22704 Method Not Allowed (GET): /vote/delegate/
+WARNING 2025-09-04 00:16:49,854 basehttp 6112 22704 "GET /vote/delegate/ HTTP/1.1" 405 0
+INFO 2025-09-04 00:24:37,717 autoreload 21420 22424 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\settings.py changed, reloading.
+INFO 2025-09-04 00:24:37,689 autoreload 6112 24452 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\settings.py changed, reloading.
+INFO 2025-09-04 00:24:39,491 autoreload 22568 26088 Watching for file changes with StatReloader
+INFO 2025-09-04 00:24:41,546 autoreload 7148 23144 Watching for file changes with StatReloader
+INFO 2025-09-04 00:25:11,376 autoreload 7148 23144 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\settings.py changed, reloading.
+INFO 2025-09-04 00:25:11,483 autoreload 22568 26088 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\settings.py changed, reloading.
+INFO 2025-09-04 00:25:12,571 autoreload 5176 27244 Watching for file changes with StatReloader
+INFO 2025-09-04 00:25:12,572 autoreload 1880 2288 Watching for file changes with StatReloader
+INFO 2025-09-04 00:25:20,161 autoreload 5176 27244 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\settings.py changed, reloading.
+INFO 2025-09-04 00:25:20,173 autoreload 1880 2288 D:\BACKUP\Complete Projects\university_voting_system\university_voting_system\settings.py changed, reloading.
+INFO 2025-09-04 00:25:21,365 autoreload 28128 11600 Watching for file changes with StatReloader
+INFO 2025-09-04 00:25:21,375 autoreload 3152 8688 Watching for file changes with StatReloader
