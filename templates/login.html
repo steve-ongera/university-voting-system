@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Student Union Voting System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .login-card {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .login-header {
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .login-header h1 {
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+    
+    .login-header p {
+        margin-bottom: 0;
+        opacity: 0.8;
+    }
+    
+    .form-floating {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        padding: 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
+    }
+    
+    .login-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+    
+    .help-text {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-top: 0.5rem;
+    }
+    
+    .voting-info {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: 2rem;
+        text-align: center;
+        color: white;
+    }
+    
+    .voting-info h3 {
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    
+    .voting-info .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+    
+    .security-notice {
+        background: rgba(255, 193, 7, 0.1);
+        border: 1px solid rgba(255, 193, 7, 0.3);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1.5rem;
+        color: #856404;
+    }
+    
+    .security-notice i {
+        color: #ffc107;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="row w-100">
+        <div class="col-lg-8 mx-auto">
+            <div class="row">
+                <!-- Login Form -->
+                <div class="col-md-6">
+                    <div class="card login-card">
+                        <div class="login-header card-header">
+                            <h1><i class="bi bi-vote-fill me-2"></i>Student Login</h1>
+                            <p>Enter your credentials to access the voting system</p>
+                        </div>
+                        
+                        <div class="card-body p-4">
+                            <form method="post" novalidate>
+                                {% csrf_token %}
+                                
+                                <!-- Registration Number Field -->
+                                <div class="form-floating">
+                                    {{ form.registration_number }}
+                                    <label for="{{ form.registration_number.id_for_label }}">
+                                        <i class="bi bi-person-badge me-2"></i>Registration Number
+                                    </label>
+                                    {% if form.registration_number.help_text %}
+                                        <div class="help-text">{{ form.registration_number.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.registration_number.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {% for error in form.registration_number.errors %}
+                                                <div><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Birth Certificate Number Field -->
+                                <div class="form-floating">
+                                    {{ form.birth_certificate_number }}
+                                    <label for="{{ form.birth_certificate_number.id_for_label }}">
+                                        <i class="bi bi-key me-2"></i>Birth Certificate Number
+                                    </label>
+                                    {% if form.birth_certificate_number.help_text %}
+                                        <div class="help-text">{{ form.birth_certificate_number.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.birth_certificate_number.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {% for error in form.birth_certificate_number.errors %}
+                                                <div><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary login-btn" id="loginBtn">
+                                    <span class="btn-text">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login to Vote
+                                    </span>
+                                    <span class="loading-spinner spinner-border spinner-border-sm me-2"></span>
+                                </button>
+                            </form>
+                            
+                            <!-- Security Notice -->
+                            <div class="security-notice">
+                                <i class="bi bi-shield-check me-2"></i>
+                                <strong>Security Notice:</strong> Your vote is confidential and secure. 
+                                Never share your login credentials with anyone.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Information Panel -->
+                <div class="col-md-6">
+                    <div class="voting-info">
+                        <div class="icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <h3>Student Union Elections</h3>
+                        <p class="mb-3">
+                            Your voice matters! Participate in shaping your student union by voting for:
+                        </p>
+                        
+                        <div class="row text-start">
+                            <div class="col-12">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle me-2 text-success"></i>
+                                        <strong>Delegates</strong> - Representatives from your department
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle me-2 text-success"></i>
+                                        <strong>Executive Positions</strong> - President, Vice President, and Ministers
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle me-2 text-success"></i>
+                                        <strong>Department Representatives</strong> - Your voice in the union
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-3 border-top border-light">
+                            <h5><i class="bi bi-info-circle me-2"></i>How it Works</h5>
+                            <div class="text-start">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small>
+                                            <strong>Step 1:</strong><br>
+                                            Vote for delegates in your department
+                                        </small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small>
+                                            <strong>Step 2:</strong><br>
+                                            Delegates vote for executive positions
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.querySelector('form');
+        const loginBtn = document.getElementById('loginBtn');
+        
+        // Handle form submission
+        loginForm.addEventListener('submit', function(e) {
+            showLoading(loginBtn);
+        });
+        
+        // Format registration number input
+        const regNumberInput = document.getElementById('{{ form.registration_number.id_for_label }}');
+        
+        regNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            
+            // Format as XX999/9999/9999
+            if (value.length > 2) {
+                value = value.substring(0, 2) + value.substring(2).replace(/[^0-9]/g, '');
+            }
+            
+            if (value.length > 5) {
+                value = value.substring(0, 5) + '/' + value.substring(5);
+            }
+            
+            if (value.length > 10) {
+                value = value.substring(0, 10) + '/' + value.substring(10);
+            }
+            
+            if (value.length > 15) {
+                value = value.substring(0, 15);
+            }
+            
+            e.target.value = value;
+        });
+        
+        regNumberInput.addEventListener('keypress', function(e) {
+            const char = String.fromCharCode(e.which);
+            const value = e.target.value;
+            
+            // Allow letters only for first 2 characters
+            if (value.length < 2) {
+                if (!/[A-Za-z]/.test(char)) {
+                    e.preventDefault();
+                }
+            }
+            // Allow numbers and slashes for the rest
+            else if (!/[0-9\/]/.test(char) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
+            }
+        });
+        
+        // Add validation feedback
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                this.classList.add('was-validated');
+            });
+            
+            input.addEventListener('input', function() {
+                this.classList.remove('was-validated');
+                // Remove any existing error styling
+                const feedback = this.parentNode.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

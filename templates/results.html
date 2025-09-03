@@ -1,0 +1,829 @@
+{% extends 'voting/base.html' %}
+
+{% block title %}Election Results - Student Union Voting System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .results-header {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .results-header h1 {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .results-summary {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .summary-item {
+        background: rgba(44, 90, 160, 0.1);
+        padding: 1.5rem;
+        border-radius: 15px;
+        text-align: center;
+        flex: 1;
+        min-width: 150px;
+    }
+    
+    .summary-item i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+    
+    .summary-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.25rem;
+    }
+    
+    .summary-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .results-section {
+        margin-bottom: 3rem;
+    }
+    
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 3px solid var(--primary-color);
+    }
+    
+    .section-header i {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+    }
+    
+    .section-header h2 {
+        margin: 0;
+        color: var(--primary-color);
+        font-weight: 700;
+    }
+    
+    .position-results {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+    
+    .position-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f8f9fa;
+    }
+    
+    .position-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 0;
+    }
+    
+    .total-votes {
+        background: rgba(44, 90, 160, 0.1);
+        color: var(--primary-color);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .candidate-result {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .candidate-result:hover {
+        transform: translateX(5px);
+    }
+    
+    .candidate-result.winner {
+        background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+        border: 2px solid rgba(40, 167, 69, 0.3);
+    }
+    
+    .candidate-result.runner-up {
+        background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+        border: 2px solid rgba(255, 193, 7, 0.3);
+    }
+    
+    .candidate-result.other {
+        background: rgba(248, 249, 250, 0.8);
+        border: 1px solid #e9ecef;
+    }
+    
+    .candidate-rank {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .winner .candidate-rank {
+        background: linear-gradient(135deg, #27ae60, #229954);
+        color: white;
+    }
+    
+    .runner-up .candidate-rank {
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+        color: white;
+    }
+    
+    .other .candidate-rank {
+        background: #6c757d;
+        color: white;
+    }
+    
+    .candidate-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), #4a69bd);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .candidate-info {
+        flex: 1;
+        margin-right: 1rem;
+    }
+    
+    .candidate-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 0.25rem;
+    }
+    
+    .candidate-details {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .party-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .vote-info {
+        text-align: right;
+        min-width: 120px;
+    }
+    
+    .vote-count {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.25rem;
+    }
+    
+    .vote-percentage {
+        font-size: 0.9rem;
+        color: #6c757d;
+        font-weight: 600;
+    }
+    
+    .progress-bar-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: rgba(0,0,0,0.05);
+    }
+    
+    .progress-bar {
+        height: 100%;
+        transition: width 1s ease-in-out;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .winner .progress-bar {
+        background: linear-gradient(135deg, #27ae60, #229954);
+    }
+    
+    .runner-up .progress-bar {
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+    
+    .other .progress-bar {
+        background: #6c757d;
+    }
+    
+    .winner-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: linear-gradient(135deg, #27ae60, #229954);
+        color: white;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        box-shadow: 0 2px 10px rgba(39, 174, 96, 0.3);
+    }
+    
+    .delegate-results {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+    
+    .department-header {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #f8f9fa;
+    }
+    
+    .no-results {
+        text-align: center;
+        padding: 3rem;
+        color: #6c757d;
+    }
+    
+    .no-results i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+    
+    .export-buttons {
+        text-align: center;
+        margin: 2rem 0;
+    }
+    
+    .export-btn {
+        margin: 0 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+    }
+    
+    .export-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
+        color: white;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: #6c757d;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    @media (max-width: 768px) {
+        .results-summary {
+            flex-direction: column;
+        }
+        
+        .summary-item {
+            min-width: auto;
+        }
+        
+        .candidate-result {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .candidate-info {
+            margin: 1rem 0;
+        }
+        
+        .vote-info {
+            text-align: center;
+        }
+        
+        .position-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+    }
+    
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+    }
+    
+    .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Results Header -->
+<div class="results-header animate-on-scroll">
+    <h1><i class="bi bi-trophy me-2"></i>{{ election.name }} - Results</h1>
+    <p class="lead mb-0">{{ election.description }}</p>
+    
+    <div class="results-summary">
+        <div class="summary-item">
+            <i class="bi bi-people"></i>
+            <div class="summary-number" id="total-participants">-</div>
+            <div class="summary-label">Total Participants</div>
+        </div>
+        <div class="summary-item">
+            <i class="bi bi-vote"></i>
+            <div class="summary-number" id="total-votes">-</div>
+            <div class="summary-label">Total Votes Cast</div>
+        </div>
+        <div class="summary-item">
+            <i class="bi bi-award"></i>
+            <div class="summary-number">{{ positions|length }}</div>
+            <div class="summary-label">Positions</div>
+        </div>
+        <div class="summary-item">
+            <i class="bi bi-calendar-check"></i>
+            <div class="summary-number">{{ election.get_current_phase_display }}</div>
+            <div class="summary-label">Election Status</div>
+        </div>
+    </div>
+</div>
+
+<!-- Export Buttons -->
+<div class="export-buttons animate-on-scroll">
+    <button class="btn btn-success export-btn" onclick="exportResults('pdf')">
+        <i class="bi bi-file-earmark-pdf me-2"></i>Export as PDF
+    </button>
+    <button class="btn btn-primary export-btn" onclick="exportResults('excel')">
+        <i class="bi bi-file-earmark-excel me-2"></i>Export as Excel
+    </button>
+    <button class="btn btn-info export-btn" onclick="printResults()">
+        <i class="bi bi-printer me-2"></i>Print Results
+    </button>
+</div>
+
+<!-- Executive Position Results -->
+<div class="results-section animate-on-scroll">
+    <div class="section-header">
+        <i class="bi bi-award"></i>
+        <h2>Executive Position Results</h2>
+    </div>
+    
+    {% for position, position_data in results.items %}
+    <div class="position-results">
+        <div class="position-header">
+            <h3 class="position-name">{{ position.get_name_display }}</h3>
+            <div class="total-votes">
+                <i class="bi bi-vote me-1"></i>{{ position_data.total_votes }} Total Votes
+            </div>
+        </div>
+        
+        {% if position_data.candidates %}
+            {% for candidate in position_data.candidates %}
+            <div class="candidate-result {% if forloop.first %}winner{% elif forloop.counter == 2 %}runner-up{% else %}other{% endif %}">
+                {% if forloop.first %}
+                    <div class="winner-badge">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                {% endif %}
+                
+                <div class="candidate-rank">
+                    {% if forloop.first %}
+                        <i class="bi bi-trophy-fill"></i>
+                    {% else %}
+                        {{ forloop.counter }}
+                    {% endif %}
+                </div>
+                
+                <div class="candidate-avatar">
+                    {{ candidate.student.first_name.0 }}{{ candidate.student.last_name.0 }}
+                </div>
+                
+                <div class="candidate-info">
+                    <div class="candidate-name">{{ candidate.student.full_name }}</div>
+                    <div class="candidate-details">{{ candidate.student.registration_number }}</div>
+                    <div class="party-badge" style="background-color: {{ candidate.party.color_code }}20; color: {{ candidate.party.color_code }};">
+                        <span>{{ candidate.party.name }} ({{ candidate.party.acronym }})</span>
+                    </div>
+                </div>
+                
+                <div class="vote-info">
+                    <div class="vote-count">{{ candidate.vote_count }}</div>
+                    <div class="vote-percentage">{{ candidate.percentage|floatformat:1 }}%</div>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: {{ candidate.percentage }}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-results">
+                <i class="bi bi-info-circle"></i>
+                <h4>No Candidates</h4>
+                <p>No candidates were available for this position.</p>
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Delegate Results -->
+<div class="results-section animate-on-scroll">
+    <div class="section-header">
+        <i class="bi bi-people"></i>
+        <h2>Department Delegate Results</h2>
+    </div>
+    
+    {% for department, delegate_data in delegate_results.items %}
+    <div class="delegate-results">
+        <div class="department-header">
+            <i class="bi bi-building me-2"></i>{{ department.name }}
+            <span class="total-votes ms-3">
+                <i class="bi bi-vote me-1"></i>{{ delegate_data.total_votes }} Total Votes
+            </span>
+        </div>
+        
+        {% if delegate_data.delegates %}
+            {% for delegate in delegate_data.delegates %}
+            <div class="candidate-result {% if forloop.first %}winner{% elif forloop.counter == 2 %}runner-up{% else %}other{% endif %}">
+                {% if forloop.first %}
+                    <div class="winner-badge">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                {% endif %}
+                
+                <div class="candidate-rank">
+                    {% if forloop.first %}
+                        <i class="bi bi-trophy-fill"></i>
+                    {% else %}
+                        {{ forloop.counter }}
+                    {% endif %}
+                </div>
+                
+                <div class="candidate-avatar">
+                    {{ delegate.student.first_name.0 }}{{ delegate.student.last_name.0 }}
+                </div>
+                
+                <div class="candidate-info">
+                    <div class="candidate-name">{{ delegate.student.full_name }}</div>
+                    <div class="candidate-details">{{ delegate.student.registration_number }}</div>
+                    <div class="party-badge" style="background-color: {{ delegate.party.color_code }}20; color: {{ delegate.party.color_code }};">
+                        <span>{{ delegate.party.name }} ({{ delegate.party.acronym }})</span>
+                    </div>
+                </div>
+                
+                <div class="vote-info">
+                    <div class="vote-count">{{ delegate.vote_count }}</div>
+                    <div class="vote-percentage">{{ delegate.percentage|floatformat:1 }}%</div>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: {{ delegate.percentage }}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-results">
+                <i class="bi bi-info-circle"></i>
+                <h4>No Delegates</h4>
+                <p>No delegates were available for this department.</p>
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Additional Statistics -->
+<div class="results-section animate-on-scroll">
+    <div class="section-header">
+        <i class="bi bi-graph-up"></i>
+        <h2>Election Statistics</h2>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                <i class="bi bi-people"></i>
+            </div>
+            <div class="stat-number" id="delegate-participation">-</div>
+            <div class="stat-label">Delegate Participation</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #27ae60, #229954);">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-number" id="voter-turnout">-</div>
+            <div class="stat-label">Voter Turnout</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                <i class="bi bi-building"></i>
+            </div>
+            <div class="stat-number">{{ delegate_results|length }}</div>
+            <div class="stat-label">Departments</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #8e44ad, #7d3c98);">
+                <i class="bi bi-calendar-event"></i>
+            </div>
+            <div class="stat-number">{{ election.created_at|date:"M d" }}</div>
+            <div class="stat-label">Election Date</div>
+        </div>
+    </div>
+</div>
+
+<!-- Back to Dashboard -->
+<div class="text-center mt-4 animate-on-scroll">
+    <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">
+        <i class="bi bi-house me-2"></i>Back to Dashboard
+    </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Calculate and display summary statistics
+    calculateSummaryStats();
+    
+    // Animate progress bars
+    animateProgressBars();
+    
+    // Setup scroll animations
+    setupScrollAnimations();
+    
+    // Animate numbers counting up
+    animateNumbers();
+});
+
+function calculateSummaryStats() {
+    let totalVotes = 0;
+    let totalParticipants = 0;
+    
+    // Calculate from position results
+    {% for position, position_data in results.items %}
+        totalVotes += {{ position_data.total_votes }};
+    {% endfor %}
+    
+    // Calculate from delegate results
+    {% for department, delegate_data in delegate_results.items %}
+        totalParticipants += {{ delegate_data.total_votes }};
+    {% endfor %}
+    
+    // Update the summary display
+    document.getElementById('total-votes').textContent = totalVotes;
+    document.getElementById('total-participants').textContent = totalParticipants;
+    
+    // Calculate additional stats
+    const delegateParticipation = "{{ delegate_results|length }}";
+    const voterTurnout = totalParticipants > 0 ? ((totalParticipants / 1000) * 100).toFixed(1) + "%" : "N/A";
+    
+    const delegateParticipationEl = document.getElementById('delegate-participation');
+    const voterTurnoutEl = document.getElementById('voter-turnout');
+    
+    if (delegateParticipationEl) {
+        delegateParticipationEl.textContent = delegateParticipation;
+    }
+    
+    if (voterTurnoutEl) {
+        voterTurnoutEl.textContent = voterTurnout;
+    }
+}
+
+function animateProgressBars() {
+    const progressBars = document.querySelectorAll('.progress-bar');
+    
+    progressBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        
+        setTimeout(() => {
+            bar.style.width = width;
+        }, 500);
+    });
+}
+
+function setupScrollAnimations() {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        },
+        {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        }
+    );
+    
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+function animateNumbers() {
+    const numberElements = document.querySelectorAll('.stat-number, .summary-number');
+    
+    numberElements.forEach(el => {
+        const finalNumber = parseInt(el.textContent) || 0;
+        if (finalNumber > 0) {
+            animateNumber(el, 0, finalNumber, 1500);
+        }
+    });
+}
+
+function animateNumber(element, start, end, duration) {
+    const startTime = performance.now();
+    
+    function updateNumber(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentNumber = Math.floor(start + (end - start) * easeOutQuart);
+        
+        element.textContent = currentNumber;
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateNumber);
+        } else {
+            element.textContent = end;
+        }
+    }
+    
+    requestAnimationFrame(updateNumber);
+}
+
+function exportResults(format) {
+    showToast(`Exporting results as ${format.toUpperCase()}...`, 'info');
+    
+    // Here you would implement the actual export functionality
+    // This could involve making an AJAX request to a server endpoint
+    // that generates the PDF or Excel file
+    
+    setTimeout(() => {
+        showToast(`Results exported successfully as ${format.toUpperCase()}!`, 'success');
+    }, 2000);
+}
+
+function printResults() {
+    // Hide export buttons and navigation before printing
+    const exportButtons = document.querySelector('.export-buttons');
+    const navbar = document.querySelector('.navbar');
+    const footer = document.querySelector('.footer');
+    
+    if (exportButtons) exportButtons.style.display = 'none';
+    if (navbar) navbar.style.display = 'none';
+    if (footer) footer.style.display = 'none';
+    
+    // Adjust styles for printing
+    document.body.style.background = 'white';
+    
+    window.print();
+    
+    // Restore elements after printing
+    setTimeout(() => {
+        if (exportButtons) exportButtons.style.display = 'block';
+        if (navbar) navbar.style.display = 'block';
+        if (footer) footer.style.display = 'block';
+        document.body.style.background = '';
+    }, 100);
+}
+
+// Add print styles
+const printStyles = `
+    @media print {
+        body {
+            background: white !important;
+        }
+        
+        .export-buttons,
+        .navbar,
+        .footer {
+            display: none !important;
+        }
+        
+        .card,
+        .position-results,
+        .delegate-results {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+        
+        .candidate-result {
+            break-inside: avoid;
+        }
+        
+        .results-section {
+            break-inside: avoid;
+        }
+    }
+`;
+
+// Inject print styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = printStyles;
+document.head.appendChild(styleSheet);
+</script>
+{% endblock %}

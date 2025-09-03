@@ -33,7 +33,7 @@ def get_current_election():
     return Election.objects.filter(is_active=True).first()
 
 class LoginView(TemplateView):
-    template_name = 'voting/login.html'
+    template_name = 'login.html'
     
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -141,7 +141,7 @@ def dashboard_view(request):
     
     if not current_election:
         messages.warning(request, "No active election at the moment.")
-        return render(request, 'voting/no_election.html')
+        return render(request, 'no_election.html')
     
     context = {
         'election': current_election,
@@ -196,7 +196,7 @@ def dashboard_view(request):
     except Student.delegate_profile.RelatedObjectDoesNotExist:
         context['is_delegate'] = False
     
-    return render(request, 'voting/dashboard.html', context)
+    return render(request, 'dashboard.html', context)
 
 @login_required
 @require_POST
@@ -462,7 +462,7 @@ def election_results_view(request):
         'positions': positions,
     }
     
-    return render(request, 'voting/results.html', context)
+    return render(request, 'results.html', context)
 
 @login_required
 def voting_status_api(request):

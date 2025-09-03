@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'voting:dashboard' %}">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
                 <i class="bi bi-ballot-check"></i> MU Voting System
             </a>
             {% if user.is_authenticated %}
@@ -23,7 +23,7 @@
                 <span class="navbar-text me-3">
                     Welcome, {{ user.first_name }} {{ user.last_name }}
                 </span>
-                <a class="nav-link" href="{% url 'voting:logout' %}">
+                <a class="nav-link" href="{% url 'logout' %}">
                     <i class="bi bi-box-arrow-right"></i> Logout
                 </a>
             </div>
