@@ -474,3 +474,89 @@ WARNING 2025-09-03 23:16:30,779 basehttp 6112 25216 "GET /.well-known/appspecifi
 INFO 2025-09-03 23:16:53,131 views 6112 25216 Student AG178/9171/2021 logged out
 INFO 2025-09-03 23:16:53,134 basehttp 6112 25216 "GET /logout/ HTTP/1.1" 302 0
 INFO 2025-09-03 23:16:53,145 basehttp 6112 25216 "GET /login/ HTTP/1.1" 200 7747
+INFO 2025-09-03 23:25:18,077 basehttp 6112 13220 "GET /login/ HTTP/1.1" 200 25697
+INFO 2025-09-03 23:26:48,481 basehttp 6112 13220 "GET /login/ HTTP/1.1" 200 10663
+INFO 2025-09-03 23:31:01,347 basehttp 6112 13220 "GET /login/ HTTP/1.1" 200 47569
+WARNING 2025-09-03 23:31:02,267 log 6112 13220 Not Found: /sw.js
+WARNING 2025-09-03 23:31:02,268 basehttp 6112 13220 "GET /sw.js HTTP/1.1" 404 5317
+WARNING 2025-09-03 23:31:02,491 basehttp 6112 13220 "GET /static/favicon.ico HTTP/1.1" 404 1960
+WARNING 2025-09-03 23:31:02,503 basehttp 6112 15752 "GET /static/images/favicon-32x32.png HTTP/1.1" 404 1999
+WARNING 2025-09-03 23:31:02,511 basehttp 6112 21884 "GET /static/images/favicon-16x16.png HTTP/1.1" 404 1999
+INFO 2025-09-03 23:31:55,751 views 6112 12852 Student AG178/9171/2021 logged in successfully
+INFO 2025-09-03 23:31:55,755 basehttp 6112 12852 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-09-03 23:31:55,846 basehttp 6112 12852 "GET /dashboard/ HTTP/1.1" 200 27743
+ERROR 2025-09-03 23:39:45,692 log 6112 3800 Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\BACKUP\Complete Projects\university_voting_system\voting\views.py", line 199, in dashboard_view
+    return render(request, 'dashboard.html', context)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\user\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'voting_guide' not found. 'voting_guide' is not a valid view function or pattern name.
+ERROR 2025-09-03 23:39:45,712 basehttp 6112 3800 "GET /dashboard/ HTTP/1.1" 500 199798
+INFO 2025-09-03 23:40:16,940 basehttp 6112 3800 "GET /dashboard/ HTTP/1.1" 200 50381
+INFO 2025-09-03 23:56:09,392 basehttp 6112 19284 "GET /dashboard/ HTTP/1.1" 200 50388
+INFO 2025-09-03 23:56:16,157 views 6112 19284 Student AG178/9171/2021 logged out
+INFO 2025-09-03 23:56:16,163 basehttp 6112 19284 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-09-03 23:56:16,227 basehttp 6112 19284 "GET /login/ HTTP/1.1" 200 47569
+WARNING 2025-09-03 23:56:16,438 log 6112 19284 Not Found: /sw.js
+WARNING 2025-09-03 23:56:16,440 basehttp 6112 19284 "GET /sw.js HTTP/1.1" 404 5317
+INFO 2025-09-03 23:58:12,894 autoreload 21420 22424 Watching for file changes with StatReloader
